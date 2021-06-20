@@ -1,63 +1,63 @@
-import React, { useState } from "react";
-import axios from "./axios";
-import requests from "./Requests";
+import React from "react";
+// import axios from "./axios";
+// import requests from "./Requests";
 import "./App.css";
-import instance from "./axios";
-import Card from "./Card";
-interface IMovie {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-  name: string;
-}
+import HomeScreen from "./Componets/HomeScreen";
+// import Card from "./UI/Card";
+// interface IMovie {
+//   adult: boolean;
+//   backdrop_path: string;
+//   genre_ids: number[];
+//   id: number;
+//   original_language: string;
+//   original_title: string;
+//   overview: string;
+//   popularity: number;
+//   poster_path: string;
+//   release_date: string;
+//   title: string;
+//   video: boolean;
+//   vote_average: number;
+//   vote_count: number;
+//   name: string;
+// }
 
-interface ITvShow {
-  backdrop_path: null;
-  first_air_date: string;
-  genre_ids: number[];
-  id: number;
-  name: string;
-  origin_country: string[];
-  original_language: string;
-  original_name: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  vote_average: number;
-  vote_count: number;
-}
+// interface ITvShow {
+//   backdrop_path: null;
+//   first_air_date: string;
+//   genre_ids: number[];
+//   id: number;
+//   name: string;
+//   origin_country: string[];
+//   original_language: string;
+//   original_name: string;
+//   overview: string;
+//   popularity: number;
+//   poster_path: string;
+//   vote_average: number;
+//   vote_count: number;
+// }
 
 const App: React.FC = () => {
-  const [movies, setMovies] = useState<IMovie[]>([]);
-  // const [tvShows, setTvShows] = useState<ITvShow[]>([]);
+  // const [movies, setMovies] = useState<IMovie[]>([]);
+  // // const [tvShows, setTvShows] = useState<ITvShow[]>([]);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const base_url = "https://image.tmdb.org./t/p/original";
+  // const [isLoading, setIsLoading] = useState(false);
+  // const base_url = "https://image.tmdb.org./t/p/original";
 
-  async function fetchData(pathURL: string) {
-    setIsLoading(true);
-    const request = await axios.get(pathURL);
-    setMovies(request.data.results);
-    console.log(request);
-    setIsLoading(false);
-  }
+  // async function fetchData(pathURL: string) {
+  //   setIsLoading(true);
+  //   const request = await axios.get(pathURL);
+  //   setMovies(request.data.results);
+  //   console.log(request);
+  //   setIsLoading(false);
+  // }
 
-  console.log("mov:", movies);
+  // console.log("mov:", movies);
 
   return (
     <div>
-      {Object.keys(requests).map((req) => (
+      {/* {Object.keys(requests).map((req) => (
         <button key={req} onClick={() => fetchData(requests[req])}>
           {req}
         </button>
@@ -85,7 +85,8 @@ const App: React.FC = () => {
             </li>
           </Card>
         ))}
-      </ul>
+      </ul> */}
+      <HomeScreen />
     </div>
   );
 };

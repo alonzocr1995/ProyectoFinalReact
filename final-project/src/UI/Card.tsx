@@ -9,13 +9,13 @@ const Card = styled.div`
   width: 50rem;
   max-width: 95%;
 
-  & input {
-    width: 100%;
-  }
-
   & img {
     width: 250px;
     height: 250px;
+  }
+
+  & ul {
+    list-style: none;
   }
 `;
 
