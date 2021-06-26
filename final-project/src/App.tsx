@@ -3,6 +3,9 @@ import React from "react";
 // import requests from "./Requests";
 import "./App.css";
 import HomeScreen from "./Componets/HomeScreen";
+import MovieScreen from "./Componets/MovieScreen";
+import LoginScreen from "./Componets/LoginScreen";
+import { Switch, Route } from "react-router-dom";
 // import Card from "./UI/Card";
 // interface IMovie {
 //   adult: boolean;
@@ -54,9 +57,10 @@ const App: React.FC = () => {
   // }
 
   // console.log("mov:", movies);
+  const user = null;
 
   return (
-    <div>
+    <>
       {/* {Object.keys(requests).map((req) => (
         <button key={req} onClick={() => fetchData(requests[req])}>
           {req}
@@ -86,8 +90,16 @@ const App: React.FC = () => {
           </Card>
         ))}
       </ul> */}
-      <HomeScreen />
-    </div>
+
+      <Switch>
+        <Route exact path="/">
+          <HomeScreen />
+        </Route>
+        <Route path="/movie">
+          <MovieScreen />
+        </Route>
+      </Switch>
+    </>
   );
 };
 

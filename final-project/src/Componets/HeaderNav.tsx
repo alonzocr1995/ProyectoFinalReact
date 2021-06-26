@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../UI/Header";
+import { Link } from "react-router-dom";
 
 const HeaderNav: React.FC = () => {
   const [show, handleShow] = useState(false);
@@ -18,16 +19,18 @@ const HeaderNav: React.FC = () => {
   return (
     <Header show={show}>
       <div className="nav__contents">
-        <img
-          className="nav__logo"
-          src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
-          alt=""
-        ></img>
+        <Link to="/">
+          <img
+            className="nav__logo"
+            src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
+            alt=""
+          />
+        </Link>
         <img
           className="nav__avatar"
           src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
           alt=""
-        ></img>
+        />
       </div>
     </Header>
   );
