@@ -16,7 +16,7 @@ const Row = styled.div`
   }
 
   & section div {
-    border: 1px solid #222121;
+    border: none;
     border-radius: 5px;
     margin: 10px;
     text-align: center;
@@ -40,7 +40,6 @@ const Row = styled.div`
     /* transform: scale(1.08); */
     transform: scale(1.09);
     cursor: pointer;
-
     opacity: 1;
   }
 `;

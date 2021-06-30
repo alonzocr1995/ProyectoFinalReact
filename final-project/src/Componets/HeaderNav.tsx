@@ -26,11 +26,13 @@ const HeaderNav: React.FC = () => {
             alt=""
           />
         </Link>
-        <img
-          className="nav__avatar"
-          src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
-          alt=""
-        />
+        <Link to="/profile">
+          <img
+            className="nav__avatar"
+            src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+            alt=""
+          />
+        </Link>
       </div>
     </Header>
   );
