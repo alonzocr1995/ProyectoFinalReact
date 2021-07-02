@@ -26,7 +26,7 @@ export const useTvShows = (fetchUrl: string) => {
 
       setTvShows(response.data.results);
     } catch {
-      console.log("Error");
+      console.error("Error");
       // TODO: Add toast error
     }
   }, [setTvShows, fetchUrl]);

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import Row from "../../../UI/Row";
 import { IMovie, useMovies } from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
@@ -8,68 +8,67 @@ interface RowProps {
   isLargeRow: boolean;
 }
 
-// interface FilterMovies {
-//   moviesList: IMovie[];
-//   ratingList: IMovie[];
-//   alphabetic: IMovie[];
-// }
+interface SortOptions {
+  [key: string]: (movieList: IMovie[]) => IMovie[];
+}
 
 const MovieRow: React.FC<RowProps> = ({
   fetchUrl,
   title,
   isLargeRow = false,
 }) => {
-  const [filter, setFilter] = useState<IMovie[]>([]);
+  const [sortOption, setSortOption] = useState<string>("");
   const { movies } = useMovies(fetchUrl);
 
-  const movieList = [...movies];
-  console.log(movieList);
+  // const movieList = [...movies];
 
-  const ratingList = movieList
-    .map((movie) => movie)
-    .sort((a, b) => b.vote_average - a.vote_average);
+  const handleRatingSort = (movieList: IMovie[]): IMovie[] =>
+    movieList
+      .map((movie) => movie)
+      .sort((a, b) => b.vote_average - a.vote_average);
 
-  const alphabeticList = movieList
-    .map((movie) => movie)
-    .sort((a, b) => {
-      if (b.title > a.title) return -1;
-      if (a.title > b.title) return 1;
-      return 0;
-    });
-  console.log("alpha", alphabeticList);
+  const handleAlphabeticSort = (movieList: IMovie[]): IMovie[] =>
+    movieList
+      .map((movie) => movie)
+      .sort((a, b) => {
+        if (b.title > a.title) return -1;
+        if (a.title > b.title) return 1;
+        return 0;
+      });
 
-  console.log("rate", ratingList);
+  // useEffect(() => {
+  //   setSortedMovies(movies);
+  // }, [setSortedMovies, movies]);
 
-  const handleFilteredMovies = useCallback(
-    (event: any) => {
-      console.log(event.target.value);
-      if (event.target.value === "Rating") return setFilter(ratingList);
-
-      if (event.target.value === "Alphabetic") return setFilter(alphabeticList);
-
-      return setFilter(movies);
+  const handleSortedMoviesChange = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setSortOption(event?.target?.value);
     },
-    [setFilter, ratingList, alphabeticList, movies]
+    [setSortOption]
   );
 
-  useEffect(() => {
-    setFilter(movies);
-  }, [setFilter, movies]);
+  const handleSortedMovies = (moviesList: IMovie[]) => {
+    const sortOptions: SortOptions = {
+      rating: handleRatingSort,
+      alphabetic: handleAlphabeticSort,
+    };
+    const sortHandler = sortOption && sortOptions[sortOption];
+    return sortHandler ? sortHandler(moviesList) : moviesList;
+  };
 
   return (
     <Row>
       <h2>{title}</h2>
-      <label style={{ color: "white" }} htmlFor="">
-        Filter By
-      </label>
+      <label htmlFor="">Filter By</label>
 
-      <select name={"select"} onChange={handleFilteredMovies}>
-        <option value="Rating">Rating</option>
-        <option value="Alphabetic">Alphabetic</option>
+      <select name="select" onChange={handleSortedMoviesChange}>
+        <option value="">Default</option>
+        <option value="rating">Rating</option>
+        <option value="alphabetic">Alphabetic</option>
       </select>
 
       <section>
-        {filter.map((movie) => (
+        {handleSortedMovies(movies).map((movie) => (
           <MovieCard key={movie.id} movie={movie} isLargeRow={isLargeRow} />
         ))}
       </section>

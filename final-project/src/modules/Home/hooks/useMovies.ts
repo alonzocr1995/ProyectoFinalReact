@@ -29,8 +29,7 @@ export const useMovies = (fetchUrl: string) => {
 
       setMovies(response.data.results);
     } catch {
-      console.log("Error");
-      // TODO: Add toast error
+      console.error("Error");
     }
   }, [setMovies, fetchUrl]);
 

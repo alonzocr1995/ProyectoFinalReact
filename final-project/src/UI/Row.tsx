@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { ThemeProps } from "./Theme";
 
-const Row = styled.div`
-  color: white;
+const Row = styled.div<ThemeProps>`
+  /* color: ${(props) => props.theme.color}; */
   margin-left: 20px;
 
   & section {

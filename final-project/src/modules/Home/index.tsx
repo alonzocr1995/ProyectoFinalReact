@@ -8,18 +8,16 @@ import MovieRow from "./components/MovieRow";
 import TvShowRow from "./components/TvShowRow";
 
 import styled from "styled-components";
-import { useWishList } from "../../shared/hooks/useWishList";
-import { useSeen } from "../../shared/hooks/useSeen";
+// import { useWishList } from "../../shared/hooks/useWishList";
+// import { useSeen } from "../../shared/hooks/useSeen";
 
 const Home = styled.div`
-  margin-top: 200px;
+  padding-top: 100px;
 `;
 
 const HomeScreen: React.FC = () => {
-  const seen = useSeen();
-  const wishList = useWishList();
-  console.log("letsseetheWish", wishList.movies, wishList.tvShows);
-  console.log("letsseetheSeen", seen.movies, seen.tvShows);
+  // const seen = useSeen();
+  // const wishList = useWishList();
 
   return (
     <Home>

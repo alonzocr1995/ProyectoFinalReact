@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMovie } from "./hooks/useMovie";
 import Card from "../../UI/Card";
 import HeaderNav from "../../Componets/HeaderNav";
 import Rating from "react-simple-star-rating";
 import axios from "../../axios";
-import { movieRatingRequest } from "../../Requests";
+import { guestSession, movieRatingRequest } from "../../Requests";
+
+export interface IGuessSessionResp {
+  expires_at: string;
+  guest_session_id: string;
+  success: boolean;
+}
 
 const MovieScreen: React.FC = () => {
   const { movie } = useMovie();
@@ -13,25 +19,30 @@ const MovieScreen: React.FC = () => {
   const handleRating = async (rate: number) => {
     setRating(rate);
     try {
-      const movieRatingPath = movieRatingRequest(movie?.id as number);
-      console.log(movieRatingPath);
+      const sessionResponse = await axios.get<IGuessSessionResp>(guestSession);
 
-      const response = await axios.post(
-        movieRatingPath,
-        {
-          value: rate,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const movieRatingPath = movieRatingRequest(
+        movie?.id as number,
+        sessionResponse.data.guest_session_id
       );
-      console.log("ratingRes", response);
+
+      const data = {
+        value: rate,
+      };
+
+      await axios.post(movieRatingPath, data, {
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (movie) {
+      setRating(movie.vote_average);
+    }
+  }, [movie]);
 
   const base_url = "https://image.tmdb.org./t/p/original/";
 

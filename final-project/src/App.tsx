@@ -7,29 +7,33 @@ import Profile from "./modules/Profile";
 import { Switch, Route } from "react-router-dom";
 import { WishListProvider } from "./shared/context/WishListContext";
 import { SeenProvider } from "./shared/context/SeenContext";
+import { ThemeProvider } from "./shared/context/ThemeContext";
+import Theme from "./UI/Theme";
 
 const App: React.FC = () => {
-  // const user = null;
-
   return (
-    <WishListProvider>
-      <SeenProvider>
-        <Switch>
-          <Route exact path="/">
-            <HomeScreen />
-          </Route>
-          <Route exact path="/movie/:id">
-            <Movie />
-          </Route>
-          <Route exact path="/tv-show/:id">
-            <TvShow />
-          </Route>
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-        </Switch>
-      </SeenProvider>
-    </WishListProvider>
+    <ThemeProvider>
+      <Theme>
+        <WishListProvider>
+          <SeenProvider>
+            <Switch>
+              <Route exact path="/">
+                <HomeScreen />
+              </Route>
+              <Route exact path="/movie/:id">
+                <Movie />
+              </Route>
+              <Route exact path="/tv-show/:id">
+                <TvShow />
+              </Route>
+              <Route exact path="/profile">
+                <Profile />
+              </Route>
+            </Switch>
+          </SeenProvider>
+        </WishListProvider>
+      </Theme>
+    </ThemeProvider>
   );
 };
 

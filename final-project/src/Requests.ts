@@ -17,8 +17,18 @@ export const movieRequest = (movie_id: string) =>
 export const tvRequest = (tv_id: string) =>
   `/tv/${tv_id}?api_key=${API_KEY}&language=en-US`;
 
-export const movieRatingRequest = (movie_id: number) =>
-  `/movie/${movie_id}/rating?api_key=${API_KEY}`;
+export const movieRatingRequest = (
+  movie_id: number,
+  guest_session_id: string
+) =>
+  `/movie/${movie_id}/rating?api_key=${API_KEY}&guest_session_id=${guest_session_id}`;
+
+export const tvRatingRequest = (tv_id: number, guest_session_id: string) =>
+  `/tv/${tv_id}/rating?api_key=${API_KEY}&guest_session_id=${guest_session_id}`;
+
+export const guestSession = `/authentication/guest_session/new?api_key=${API_KEY}`;
+
+// https://api.themoviedb.org/3/movie/{movie_id}/rating?api_key=<<api_key>>
 
 export default requests;
 
